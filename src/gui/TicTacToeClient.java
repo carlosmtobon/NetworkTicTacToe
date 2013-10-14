@@ -71,9 +71,9 @@ public class TicTacToeClient extends JFrame {
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(BOARD_SIZE, BOARD_SIZE));
         grid.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        for (int i = 0; i < gameBoard.length; i++) {
-            for (int j = 0; j < gameBoard[0].length; j++) {
-                grid.add(gameBoard[i][j]);
+        for (JButton[] array : gameBoard) {
+            for (JButton button : array) {
+                grid.add(button);
             }
         }
         gridPanel.add(grid);
@@ -98,9 +98,9 @@ public class TicTacToeClient extends JFrame {
     }
 
     public void enableGrid(boolean state) {
-        for (int i = 0; i < gameBoard.length; i++) {
-            for (int j = 0; j < gameBoard[0].length; j++) {
-                gameBoard[i][j].setEnabled(state);
+        for (JButton[] array : gameBoard) {
+            for (JButton button : array) {
+                button.setEnabled(state);
             }
         }
     }
