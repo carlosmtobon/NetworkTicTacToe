@@ -83,12 +83,17 @@ public class TicTacToeServer {
                             System.out.println("Player " + currentPlayer.piece + " wins!");
                             currentPlayer.output.writeObject("You Win Player " + currentPlayer.piece );
                             otherPlayer.output.writeObject("You lose Player " + otherPlayer.piece);
-                            currentPlayer.output.writeObject("SERVER$RESET");
-                            otherPlayer.output.writeObject("SERVER$RESET");
                             endGame();
                         }
                         board.display();
                         turn++;
+                        if (turn == (BOARD_SIZE * BOARD_SIZE)) {
+                            for (PlayerHandler p : players) {
+                                p.output.writeObject("Tie Game!");
+                            }
+                            endGame();
+                        }
+
                     } else {
                         System.out.println("Invalid move");
                     }
@@ -111,7 +116,10 @@ public class TicTacToeServer {
         return board.insertPos(x, y, piece);
     }
 
-    private void endGame() {
+    private void endGame() throws IOException {
+        for (PlayerHandler p : players) {
+            p.output.writeObject("SERVER$RESET");
+        }
         gameOver = true;
         players = null;
 //        for (PlayerHandler p : players) {
